@@ -26,8 +26,8 @@ namespace WatchApp
     public class MyWatchFaceEngine : CanvasWatchFaceService.Engine
     {
       CanvasWatchFaceService owner;
-      Paint timePaint;
-      Paint datePaint;
+      Paint brightPaint;
+      Paint dullPaint;
       Paint backPaint;
       // Broadcast receiver for handling time zone changes:
       TimeZoneReceiver timeZoneReceiver;
@@ -45,11 +45,11 @@ namespace WatchApp
         SetWatchFaceStyle(new WatchFaceStyle.Builder(owner)
             .Build());
 
-        timePaint = new Paint();
-        timePaint.Color = Color.White;
-        timePaint.TextSize = 72f;
+        brightPaint = new Paint();
+        brightPaint.Color = Color.White;
+        brightPaint.TextSize = 72f;
 
-        datePaint = new Paint() { AntiAlias = true, Color = Color.White, TextSize = 48f };
+        dullPaint = new Paint() { AntiAlias = true, Color = Color.White, TextSize = 48f };
         backPaint = new Paint() { Color = Color.Black };
 
         time = new GregorianCalendar(Android.Icu.Util.TimeZone.Default);
@@ -65,34 +65,51 @@ namespace WatchApp
       {
         time = new GregorianCalendar(Android.Icu.Util.TimeZone.Default);
 
-        TextPaint timeTextPaint = new TextPaint(timePaint);
-        TextPaint dateTextPaint = new TextPaint(datePaint);
+        TextPaint brightTextPaint = new TextPaint(brightPaint);
+        TextPaint dullTextPaint = new TextPaint(dullPaint);
 
+        // Time Layout
         var timeString = DateUtils.FormatDateTime(Application.Context, time.TimeInMillis, FormatStyleFlags.ShowTime);
         logit(timeString);
 
-        var timeLayout = StaticLayout.Builder.Obtain(timeString, 0, timeString.Length, timeTextPaint, frame.Width())
+        var timeLayout = StaticLayout.Builder.Obtain(timeString, 0, timeString.Length, brightTextPaint, frame.Width())
           .SetAlignment(Layout.Alignment.AlignCenter)
           .Build();
 
+        // Date Layout
         var dateString = DateUtils.FormatDateTime(Application.Context, time.TimeInMillis, FormatStyleFlags.ShowDate);
         logit(dateString);
 
-        var dateLayout = StaticLayout.Builder.Obtain(dateString, 0, dateString.Length, dateTextPaint, frame.Width())
+        var dateLayout = StaticLayout.Builder.Obtain(dateString, 0, dateString.Length, dullTextPaint, frame.Width())
           .SetAlignment(Layout.Alignment.AlignCenter)
           .Build();
 
+        // Notifications Layout
+        var notifString = notificationCount == 0 ? "" : $"{unreadCount}/{notificationCount}";
+
+        var notifLayout = StaticLayout.Builder.Obtain(notifString, 0, notifString.Length, dullTextPaint, frame.Width())
+          .SetAlignment(Layout.Alignment.AlignCenter)
+          .Build();
+
+        // Background
         canvas.DrawColor(Color.Black);
         canvas.DrawRect(frame,backPaint);
-        canvas.Save();
-        float textHeight = timeLayout.Height + dateLayout.Height;
 
+        canvas.Save();
+
+        // Draw the notifications
+        notifLayout.Draw(canvas);
+
+        // Calculate positioning for the time and date
+        float textHeight = timeLayout.Height + dateLayout.Height;
         float textYCoordinate = frame.ExactCenterY() - textHeight / 2;
         float textXCoordinate = frame.Left;
 
+        // Draw the time
         canvas.Translate(textXCoordinate, textYCoordinate);
         timeLayout.Draw(canvas);
 
+        // Draw the date
         canvas.Translate(textXCoordinate, timeLayout.Height);
         dateLayout.Draw(canvas);
 
@@ -101,6 +118,20 @@ namespace WatchApp
 
       public override void OnTimeTick()
       {
+        Invalidate();
+      }
+
+      public override void OnNotificationCountChanged(int count)
+      {
+        base.OnNotificationCountChanged(count);
+        notificationCount = count;
+        Invalidate();
+      }
+
+      public override void OnUnreadCountChanged(int count)
+      {
+        base.OnUnreadCountChanged(count);
+        unreadCount = count;
         Invalidate();
       }
 
@@ -124,6 +155,8 @@ namespace WatchApp
       }
 
       bool registeredTimezoneReceiver = false;
+      private int notificationCount;
+      private int unreadCount;
 
       // Registers the time zone broadcast receiver (defined at the end of 
       // this file) to handle time zone change events:
