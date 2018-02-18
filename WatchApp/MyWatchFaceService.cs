@@ -45,10 +45,7 @@ namespace WatchApp
         SetWatchFaceStyle(new WatchFaceStyle.Builder(owner)
             .Build());
 
-        brightPaint = new Paint();
-        brightPaint.Color = Color.White;
-        brightPaint.TextSize = 72f;
-
+        brightPaint = new Paint { Color = Color.White, TextSize = 72f };
         dullPaint = new Paint() { AntiAlias = true, Color = Color.White, TextSize = 48f };
         backPaint = new Paint() { Color = Color.Black };
 
@@ -57,7 +54,7 @@ namespace WatchApp
         
       }
 
-      private void logit(string message)
+      private void Log(string message)
       {
         Console.WriteLine(message);
       }
@@ -70,7 +67,7 @@ namespace WatchApp
 
         // Time Layout
         var timeString = DateUtils.FormatDateTime(Application.Context, time.TimeInMillis, FormatStyleFlags.ShowTime);
-        logit(timeString);
+        Log(timeString);
 
         var timeLayout = StaticLayout.Builder.Obtain(timeString, 0, timeString.Length, brightTextPaint, frame.Width())
           .SetAlignment(Layout.Alignment.AlignCenter)
@@ -78,7 +75,7 @@ namespace WatchApp
 
         // Date Layout
         var dateString = DateUtils.FormatDateTime(Application.Context, time.TimeInMillis, FormatStyleFlags.ShowDate);
-        logit(dateString);
+        Log(dateString);
 
         var dateLayout = StaticLayout.Builder.Obtain(dateString, 0, dateString.Length, dullTextPaint, frame.Width())
           .SetAlignment(Layout.Alignment.AlignCenter)
@@ -169,10 +166,12 @@ namespace WatchApp
         {
           if (timeZoneReceiver == null)
           {
-            timeZoneReceiver = new TimeZoneReceiver();
-            timeZoneReceiver.Receive = (intent) =>
+            timeZoneReceiver = new TimeZoneReceiver
             {
-              time = new GregorianCalendar(Android.Icu.Util.TimeZone.Default);
+              Receive = (intent) =>
+              {
+                time = new GregorianCalendar(Android.Icu.Util.TimeZone.Default);
+              }
             };
           }
           registeredTimezoneReceiver = true;
