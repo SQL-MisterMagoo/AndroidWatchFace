@@ -25,7 +25,7 @@ namespace WatchApp
       GregorianCalendar time;
       private int notificationCount;
       private int unreadCount;
-
+      private static bool ambientMode;
 
       public MyWatchFaceEngine(CanvasWatchFaceService owner) : base(owner)
       {
@@ -82,7 +82,8 @@ namespace WatchApp
       private static void DrawNotifications(Canvas canvas, StaticLayout notifLayout)
       {
         // Draw the notifications
-        notifLayout.Draw(canvas);
+        if (! ambientMode)
+          notifLayout.Draw(canvas);
       }
 
       private void DrawBackground(Canvas canvas, Rect frame)
@@ -99,7 +100,8 @@ namespace WatchApp
 
       private static void DrawDate(Canvas canvas, StaticLayout dateLayout)
       {
-        dateLayout.Draw(canvas);
+        if (!ambientMode)
+          dateLayout.Draw(canvas);
       }
 
       private StaticLayout GetNotificationsLayoutAndText(Rect frame, TextPaint dullTextPaint)
@@ -207,6 +209,12 @@ namespace WatchApp
           UnregisterTimezoneReceiver();
       }
 
+      public override void OnAmbientModeChanged(bool inAmbientMode)
+      {
+        base.OnAmbientModeChanged(inAmbientMode);
+        ambientMode = inAmbientMode;
+        Invalidate();
+      }
       // Helpers
 
       private string GetFormattedDateTimeString(FormatStyleFlags formatStyle)
