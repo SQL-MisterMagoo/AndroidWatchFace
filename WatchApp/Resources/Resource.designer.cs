@@ -922,11 +922,8 @@ namespace WatchApp
 			// aapt resource value: 0x7f090019
 			public const int multi_page = 2131296281;
 			
-			// aapt resource value: 0x7f09002d
-			public const int myButton = 2131296301;
-			
-			// aapt resource value: 0x7f09003a
-			public const int nested_icon = 2131296314;
+			// aapt resource value: 0x7f090038
+			public const int nested_icon = 2131296312;
 			
 			// aapt resource value: 0x7f09000c
 			public const int none = 2131296268;
@@ -952,17 +949,14 @@ namespace WatchApp
 			// aapt resource value: 0x7f090018
 			public const int start = 2131296280;
 			
-			// aapt resource value: 0x7f090037
-			public const int text = 2131296311;
+			// aapt resource value: 0x7f090035
+			public const int text = 2131296309;
 			
-			// aapt resource value: 0x7f090036
-			public const int title = 2131296310;
+			// aapt resource value: 0x7f090034
+			public const int title = 2131296308;
 			
 			// aapt resource value: 0x7f090007
 			public const int top = 2131296263;
-			
-			// aapt resource value: 0x7f090027
-			public const int watch_view_stub = 2131296295;
 			
 			// aapt resource value: 0x7f090020
 			public const int wearable_support_action_drawer_expand_icon = 2131296288;
@@ -979,50 +973,50 @@ namespace WatchApp
 			// aapt resource value: 0x7f090021
 			public const int wearable_support_action_drawer_title = 2131296289;
 			
+			// aapt resource value: 0x7f09002a
+			public const int wearable_support_confirmation_overlay_image = 2131296298;
+			
 			// aapt resource value: 0x7f09002b
-			public const int wearable_support_confirmation_overlay_image = 2131296299;
+			public const int wearable_support_confirmation_overlay_message = 2131296299;
+			
+			// aapt resource value: 0x7f090036
+			public const int wearable_support_drawer_view_peek_container = 2131296310;
+			
+			// aapt resource value: 0x7f090037
+			public const int wearable_support_drawer_view_peek_icon = 2131296311;
 			
 			// aapt resource value: 0x7f09002c
-			public const int wearable_support_confirmation_overlay_message = 2131296300;
-			
-			// aapt resource value: 0x7f090038
-			public const int wearable_support_drawer_view_peek_container = 2131296312;
-			
-			// aapt resource value: 0x7f090039
-			public const int wearable_support_drawer_view_peek_icon = 2131296313;
+			public const int wearable_support_nav_drawer_icon_0 = 2131296300;
 			
 			// aapt resource value: 0x7f09002e
-			public const int wearable_support_nav_drawer_icon_0 = 2131296302;
-			
-			// aapt resource value: 0x7f090030
-			public const int wearable_support_nav_drawer_icon_1 = 2131296304;
-			
-			// aapt resource value: 0x7f090031
-			public const int wearable_support_nav_drawer_icon_2 = 2131296305;
-			
-			// aapt resource value: 0x7f090032
-			public const int wearable_support_nav_drawer_icon_3 = 2131296306;
-			
-			// aapt resource value: 0x7f090033
-			public const int wearable_support_nav_drawer_icon_4 = 2131296307;
-			
-			// aapt resource value: 0x7f090034
-			public const int wearable_support_nav_drawer_icon_5 = 2131296308;
-			
-			// aapt resource value: 0x7f090035
-			public const int wearable_support_nav_drawer_icon_6 = 2131296309;
+			public const int wearable_support_nav_drawer_icon_1 = 2131296302;
 			
 			// aapt resource value: 0x7f09002f
-			public const int wearable_support_nav_drawer_text = 2131296303;
+			public const int wearable_support_nav_drawer_icon_2 = 2131296303;
+			
+			// aapt resource value: 0x7f090030
+			public const int wearable_support_nav_drawer_icon_3 = 2131296304;
+			
+			// aapt resource value: 0x7f090031
+			public const int wearable_support_nav_drawer_icon_4 = 2131296305;
+			
+			// aapt resource value: 0x7f090032
+			public const int wearable_support_nav_drawer_icon_5 = 2131296306;
+			
+			// aapt resource value: 0x7f090033
+			public const int wearable_support_nav_drawer_icon_6 = 2131296307;
+			
+			// aapt resource value: 0x7f09002d
+			public const int wearable_support_nav_drawer_text = 2131296301;
+			
+			// aapt resource value: 0x7f090027
+			public const int wearable_support_navigation_drawer_item_icon = 2131296295;
 			
 			// aapt resource value: 0x7f090028
-			public const int wearable_support_navigation_drawer_item_icon = 2131296296;
+			public const int wearable_support_navigation_drawer_item_text = 2131296296;
 			
 			// aapt resource value: 0x7f090029
-			public const int wearable_support_navigation_drawer_item_text = 2131296297;
-			
-			// aapt resource value: 0x7f09002a
-			public const int wearable_support_navigation_drawer_page_indicator = 2131296298;
+			public const int wearable_support_navigation_drawer_page_indicator = 2131296297;
 			
 			// aapt resource value: 0x7f090001
 			public const int wearable_support_navigation_drawer_view_pager = 2131296257;
@@ -1121,52 +1115,43 @@ namespace WatchApp
 			public const int dismiss_overlay = 2130903045;
 			
 			// aapt resource value: 0x7f030006
-			public const int Main = 2130903046;
+			public const int navigation_drawer_item_view = 2130903046;
 			
 			// aapt resource value: 0x7f030007
-			public const int navigation_drawer_item_view = 2130903047;
+			public const int navigation_drawer_view = 2130903047;
 			
 			// aapt resource value: 0x7f030008
-			public const int navigation_drawer_view = 2130903048;
+			public const int overlay_confirmation = 2130903048;
 			
 			// aapt resource value: 0x7f030009
-			public const int overlay_confirmation = 2130903049;
+			public const int single_page_nav_drawer_1_item = 2130903049;
 			
 			// aapt resource value: 0x7f03000a
-			public const int RectangleMain = 2130903050;
+			public const int single_page_nav_drawer_2_item = 2130903050;
 			
 			// aapt resource value: 0x7f03000b
-			public const int RoundMain = 2130903051;
+			public const int single_page_nav_drawer_3_item = 2130903051;
 			
 			// aapt resource value: 0x7f03000c
-			public const int single_page_nav_drawer_1_item = 2130903052;
+			public const int single_page_nav_drawer_4_item = 2130903052;
 			
 			// aapt resource value: 0x7f03000d
-			public const int single_page_nav_drawer_2_item = 2130903053;
+			public const int single_page_nav_drawer_5_item = 2130903053;
 			
 			// aapt resource value: 0x7f03000e
-			public const int single_page_nav_drawer_3_item = 2130903054;
+			public const int single_page_nav_drawer_6_item = 2130903054;
 			
 			// aapt resource value: 0x7f03000f
-			public const int single_page_nav_drawer_4_item = 2130903055;
+			public const int single_page_nav_drawer_7_item = 2130903055;
 			
 			// aapt resource value: 0x7f030010
-			public const int single_page_nav_drawer_5_item = 2130903056;
+			public const int single_page_nav_drawer_peek_view = 2130903056;
 			
 			// aapt resource value: 0x7f030011
-			public const int single_page_nav_drawer_6_item = 2130903057;
+			public const int watch_card_content = 2130903057;
 			
 			// aapt resource value: 0x7f030012
-			public const int single_page_nav_drawer_7_item = 2130903058;
-			
-			// aapt resource value: 0x7f030013
-			public const int single_page_nav_drawer_peek_view = 2130903059;
-			
-			// aapt resource value: 0x7f030014
-			public const int watch_card_content = 2130903060;
-			
-			// aapt resource value: 0x7f030015
-			public const int wearable_drawer_view = 2130903061;
+			public const int wearable_drawer_view = 2130903058;
 			
 			static Layout()
 			{
@@ -1215,23 +1200,23 @@ namespace WatchApp
 			// aapt resource value: 0x7f100023
 			public const int app_name = 2131755043;
 			
+			// aapt resource value: 0x7f100024
+			public const int auth_client_needs_enabling_title = 2131755044;
+			
+			// aapt resource value: 0x7f100025
+			public const int auth_client_needs_installation_title = 2131755045;
+			
 			// aapt resource value: 0x7f100026
-			public const int auth_client_needs_enabling_title = 2131755046;
+			public const int auth_client_needs_update_title = 2131755046;
 			
 			// aapt resource value: 0x7f100027
-			public const int auth_client_needs_installation_title = 2131755047;
+			public const int auth_client_play_services_err_notification_msg = 2131755047;
 			
 			// aapt resource value: 0x7f100028
-			public const int auth_client_needs_update_title = 2131755048;
+			public const int auth_client_requested_by_msg = 2131755048;
 			
 			// aapt resource value: 0x7f100029
-			public const int auth_client_play_services_err_notification_msg = 2131755049;
-			
-			// aapt resource value: 0x7f10002a
-			public const int auth_client_requested_by_msg = 2131755050;
-			
-			// aapt resource value: 0x7f10002b
-			public const int auth_client_using_bad_version_title = 2131755051;
+			public const int auth_client_using_bad_version_title = 2131755049;
 			
 			// aapt resource value: 0x7f100000
 			public const int buttons_rect_bottom_center = 2131755008;
@@ -1325,12 +1310,6 @@ namespace WatchApp
 			
 			// aapt resource value: 0x7f10001e
 			public const int generic_yes = 2131755038;
-			
-			// aapt resource value: 0x7f100025
-			public const int hello_rect = 2131755045;
-			
-			// aapt resource value: 0x7f100024
-			public const int hello_round = 2131755044;
 			
 			// aapt resource value: 0x7f10001f
 			public const int navigation_drawer_content_description = 2131755039;

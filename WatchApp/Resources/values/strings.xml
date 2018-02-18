@@ -2,8 +2,6 @@
 <resources>
 
 	<string name="app_name">WatchApp</string>
-	<string name="hello_round">I\'m Round. Tap Me!</string>
-	<string name="hello_rect">I\'m Rect. Tap Me!</string>
 	<string name="auth_client_needs_enabling_title"></string>
 	<string name="auth_client_needs_installation_title"></string>
 	<string name="auth_client_needs_update_title"></string>
