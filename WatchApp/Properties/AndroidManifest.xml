@@ -1,15 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.mistermagoo.watchapp" android:installLocation="auto">
-	<uses-sdk />
-	<uses-feature android:name="android.hardware.type.watch" />
-	<uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.WAKE_LOCK" />
-	<application android:label="WatchApp" android:theme="@android:style/Theme.DeviceDefault">
+  <uses-sdk />
+  <uses-feature android:name="android.hardware.type.watch" />
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.WAKE_LOCK" />
+  <application android:label="WatchApp" android:theme="@android:style/Theme.DeviceDefault">
     <service
     android:name="watchapp.MyWatchFaceService"
     android:label="My Watch Face"
     android:allowEmbedded="true"
     android:taskAffinity=""
+    android:directBootAware="true"
     android:permission="android.permission.BIND_WALLPAPER">
       <meta-data
           android:name="android.service.wallpaper"
@@ -21,6 +22,22 @@
         <action android:name="android.service.wallpaper.WallpaperService" />
         <category android:name="com.google.android.wearable.watchface.category.WATCH_FACE" />
       </intent-filter>
+    </service>
+    <service
+    android:name="watchapp.MMLuckFactorComplication"
+    android:icon="@drawable/preview"
+    android:label="@string/complications_provider_mm_luck_factor"
+    android:permission="com.google.android.wearable.permission.BIND_COMPLICATION_PROVIDER">
+      <intent-filter>
+        <action android:name="android.support.wearable.complications.ACTION_COMPLICATION_UPDATE_REQUEST"/>
+      </intent-filter>
+    <meta-data
+                android:name="android.support.wearable.complications.SUPPORTED_TYPES"
+                android:value="SHORT_TEXT"/>
+
+            <meta-data
+                android:name="android.support.wearable.complications.UPDATE_PERIOD_SECONDS"
+                android:value="3"/>
     </service>
   </application>
 </manifest>

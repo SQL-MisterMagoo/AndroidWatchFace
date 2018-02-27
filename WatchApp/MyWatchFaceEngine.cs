@@ -7,6 +7,8 @@ using Android.Graphics;
 using Android.Support.Wearable.Watchface;
 using Android.Icu.Util;
 using Android.Text;
+using Android.Support.Wearable.Complications;
+using Android.Support.Wearable.Complications.Rendering;
 
 namespace WatchApp
 {
@@ -15,8 +17,8 @@ namespace WatchApp
     public class MyWatchFaceEngine : CanvasWatchFaceService.Engine
     {
       CanvasWatchFaceService owner;
-      Paint brightPaint;
-      Paint dullPaint;
+      TextPaint brightPaint;
+      TextPaint dullPaint;
       Paint backPaint;
 
       TimeZoneReceiver timeZoneReceiver;
@@ -25,7 +27,10 @@ namespace WatchApp
       GregorianCalendar time;
       private int notificationCount;
       private int unreadCount;
-
+      private static bool ambientMode;
+      private TextRenderer complicationRenderer;
+      private ComplicationData dateComplicationData;
+      private ComplicationDrawable complicationDrawable;
 
       public MyWatchFaceEngine(CanvasWatchFaceService owner) : base(owner)
       {
@@ -39,12 +44,22 @@ namespace WatchApp
         SetWatchFaceStyle(new WatchFaceStyle.Builder(owner)
             .Build());
 
-        brightPaint = new Paint { Color = Color.White, TextSize = 72f };
-        dullPaint = new Paint() { AntiAlias = true, Color = Color.White, TextSize = 48f };
-        backPaint = new Paint() { Color = Color.Black };
+        brightPaint = new TextPaint { Color = Color.White, TextSize = 72f };
+        dullPaint = new TextPaint() { AntiAlias = true, Color = Color.White, TextSize = 48f };
+        backPaint = new TextPaint() { Color = Color.Black };
 
         UpdateCalendarWithCurrentTime();
 
+        SetDefaultComplicationProvider(101, new ComponentName(Application.Context, Java.Lang.Class.FromType(typeof(MMLuckFactorComplication))), ComplicationData.TypeShortText);
+        SetActiveComplications(101);
+
+        //complicationRenderer = new TextRenderer();
+        //complicationRenderer.SetPaint(dullPaint);
+        //complicationRenderer.SetText("wait");
+        //complicationRenderer.SetMinimumCharactersShown(12);
+
+        complicationDrawable = new ComplicationDrawable(Application.Context);
+        complicationDrawable.SetTextColorActive(dullPaint.Color.ToArgb());
       }
 
       // Drawing the watch face
@@ -53,12 +68,9 @@ namespace WatchApp
       {
         UpdateCalendarWithCurrentTime();
 
-        TextPaint brightTextPaint = new TextPaint(brightPaint);
-        TextPaint dullTextPaint = new TextPaint(dullPaint);
-
-        StaticLayout timeLayout = GetTimeLayoutAndText(frame, brightTextPaint);
-        StaticLayout dateLayout = GetDateLayoutAndText(frame, dullTextPaint);
-        StaticLayout notifLayout = GetNotificationsLayoutAndText(frame, dullTextPaint);
+        StaticLayout timeLayout = GetTimeLayoutAndText(frame, brightPaint);
+        StaticLayout dateLayout = GetDateLayoutAndText(frame, dullPaint);
+        StaticLayout notifLayout = GetNotificationsLayoutAndText(frame, dullPaint);
 
         canvas.Save();
 
@@ -77,12 +89,17 @@ namespace WatchApp
         DrawDate(canvas, dateLayout);
 
         canvas.Restore();
+
+        int complicationRendererTop = (int)textYCoordinate + timeLayout.Height + dateLayout.Height + 10;
+        complicationDrawable.SetBounds(frame.Left, complicationRendererTop, frame.Right, frame.Bottom);
+        complicationDrawable.Draw(canvas);
       }
 
       private static void DrawNotifications(Canvas canvas, StaticLayout notifLayout)
       {
         // Draw the notifications
-        notifLayout.Draw(canvas);
+        if (! ambientMode)
+          notifLayout.Draw(canvas);
       }
 
       private void DrawBackground(Canvas canvas, Rect frame)
@@ -97,9 +114,12 @@ namespace WatchApp
         timeLayout.Draw(canvas);
       }
 
-      private static void DrawDate(Canvas canvas, StaticLayout dateLayout)
+      private void DrawDate(Canvas canvas, StaticLayout dateLayout)
       {
-        dateLayout.Draw(canvas);
+        if (!ambientMode)
+        {
+          dateLayout.Draw(canvas);
+        }
       }
 
       private StaticLayout GetNotificationsLayoutAndText(Rect frame, TextPaint dullTextPaint)
@@ -150,7 +170,7 @@ namespace WatchApp
             {
               Receive = (intent) =>
               {
-                UpdateCalendarWithCurrentTime();
+                UpdateCalendarWithCurrentTime(true);
               }
             };
           }
@@ -207,6 +227,23 @@ namespace WatchApp
           UnregisterTimezoneReceiver();
       }
 
+      public override void OnAmbientModeChanged(bool inAmbientMode)
+      {
+        base.OnAmbientModeChanged(inAmbientMode);
+        ambientMode = inAmbientMode;
+        Invalidate();
+      }
+
+      public override void OnComplicationDataUpdate(int watchFaceComplicationId, ComplicationData data)
+      {
+        base.OnComplicationDataUpdate(watchFaceComplicationId, data);
+        switch (watchFaceComplicationId)
+        {
+          case 101:
+            complicationDrawable.SetComplicationData(data);
+            break;
+        }
+      }
       // Helpers
 
       private string GetFormattedDateTimeString(FormatStyleFlags formatStyle)
@@ -220,9 +257,13 @@ namespace WatchApp
         Console.WriteLine(message);
       }
 
-      private void UpdateCalendarWithCurrentTime()
+      private void UpdateCalendarWithCurrentTime(bool resetTimezone = false)
       {
-        time = new GregorianCalendar(Android.Icu.Util.TimeZone.Default);
+        if (time == null || resetTimezone)
+        {
+          time = new GregorianCalendar(Android.Icu.Util.TimeZone.Default);
+        }
+        time.TimeInMillis = Java.Lang.JavaSystem.CurrentTimeMillis();
       }
 
     }

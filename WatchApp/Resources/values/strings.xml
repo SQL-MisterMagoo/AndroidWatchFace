@@ -8,5 +8,6 @@
 	<string name="auth_client_play_services_err_notification_msg"></string>
 	<string name="auth_client_requested_by_msg"></string>
 	<string name="auth_client_using_bad_version_title"></string>
+  <string name="complications_provider_mm_luck_factor" >Luck Factor</string>
 
 </resources>
