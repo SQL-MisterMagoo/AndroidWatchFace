@@ -6,8 +6,9 @@ Responds to changes in timezone.
 
 ## Todo
 
-- [ ] Add support for "Complications" ?
-- [ ] Unread notification count ?
+- [x] Add support for "Complications" ?
+- [x] Unread notification count ?
+- [ ] Add complication settings page
 
 ## Links
 
